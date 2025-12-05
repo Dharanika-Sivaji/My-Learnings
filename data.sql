@@ -1,0 +1,45 @@
+import tkinter as tk
+import mysql.connector
+def data():
+    val1=entry1.get()
+    val2=entry2.get()
+    val3=entry3.get()
+    val4=entry4.get()
+    val5=entry5.get()
+    try:
+        db=mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="employee"
+        )
+        cursor=db.cursor()
+        
+        cursor.execute("INSERT INTO data(id,name,mobile,column_email,place)VALUES(%s,%s,%s,%s,%s)",(val1,val2,val3,val4,val5,))
+        db.commit()
+        msg.configure(text="success")
+    except:
+        msg.configure(text="failed")
+
+root=tk.Tk()
+root.title("welcome")
+root.geometry("400x400")
+tk.Label(root,text="enter the id").grid(row=0,column=0)
+entry1=tk.Entry(root)
+entry1.grid(row=0,column=1)
+tk.Label(root,text="enter the name").grid(row=1,column=0)
+entry2=tk.Entry(root)
+entry2.grid(row=1,column=1)
+tk.Label(root,text="enter the mobile").grid(row=2,column=0)
+entry3=tk.Entry(root)
+entry3.grid(row=2,column=1)
+tk.Label(root,text="enter the column_email").grid(row=3,column=0)
+entry4=tk.Entry(root)
+entry4.grid(row=3,column=1)
+tk.Label(root,text="enter the place").grid(row=4,column=0)
+entry5=tk.Entry(root)
+entry5.grid(row=4,column=1)
+tk.Button(root,text="submit",command=data).grid(row=5,column=3)
+msg=tk.Label(root,text="")
+msg.grid(row=5,column=1)
+root.mainloop()
